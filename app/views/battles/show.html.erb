@@ -1,0 +1,113 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="display-4 text-white">Battle Results</h1>
+        <small class="text-gray"><%= @battle.created_at.strftime("%B %d, %Y at %H:%M") %></small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fighters Cards -->
+  <div class="row g-4 mb-5">
+    <!-- Winner Card -->
+    <div class="col-md-6">
+      <div class="card bg-dark text-white border-success h-100">
+        <div class="card-header bg-success">
+          <h2 class="h4 mb-0">Winner</h2>
+        </div>
+        <div class="card-body">
+          <h3 class="h2 mb-4"><%= @battle.winner.name %></h3>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Health Points</span>
+              <span><%= @battle.winner.health_points %>/150</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-danger" style="width: <%= (@battle.winner.health_points.to_f / 150 * 100).round %>%"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Attack Points</span>
+              <span><%= @battle.winner.attack_points %>/25</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-primary" style="width: <%= (@battle.winner.attack_points.to_f / 25 * 100).round %>%"></div>
+            </div>
+          </div>
+
+          <% if @battle.winner_weapon %>
+            <div class="alert alert-success bg-success bg-opacity-0 border-success text-gray">
+              <i class="bi bi-shield-fill me-2"></i>
+              Used <%= @battle.winner_weapon.name %> (+<%= @battle.winner_weapon.attack_bonus %> ATK)
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loser Card -->
+    <div class="col-md-6">
+      <div class="card bg-dark text-white border-danger h-100">
+        <div class="card-header bg-danger">
+          <h2 class="h4 mb-0">Defeated</h2>
+        </div>
+        <div class="card-body">
+          <h3 class="h2 mb-4"><%= @battle.loser.name %></h3>
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Health Points</span>
+              <span><%= @battle.loser.health_points %>/150</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-danger" style="width: <%= (@battle.loser.health_points.to_f / 150 * 100).round %>%"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Attack Points</span>
+              <span><%= @battle.loser.attack_points %>/25</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-primary" style="width: <%= (@battle.loser.attack_points.to_f / 25 * 100).round %>%"></div>
+            </div>
+          </div>
+
+          <% if @battle.loser_weapon %>
+            <div class="alert alert-danger bg-danger bg-opacity-0 border-danger">
+              <i class="bi bi-shield me-2"></i>
+              Used <%= @battle.loser_weapon.name %> (+<%= @battle.loser_weapon.attack_bonus %> ATK)
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Battle Log -->
+  <div class="card bg-dark text-white border-primary">
+    <div class="card-header bg-primary">
+      <h2 class="h4 mb-0">Battle Log</h2>
+    </div>
+    <div class="card-body">
+      <div class="list-group list-group-flush bg-transparent">
+        <% @battle.battle_log.split("\n").each do |log_line| %>
+          <div class="list-group-item bg-dark text-white border-secondary py-2">
+            <%= log_line %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card-footer bg-dark border-primary">
+      <div class="d-flex justify-content-end gap-2">
+        <%= link_to 'Back to Battles', battles_path, class: "btn btn-secondary" %>
+        <%= link_to 'New Battle', new_battle_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

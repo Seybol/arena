@@ -1,72 +1,61 @@
-Ce repo contient le squelette d'une application à compléter dans le cadre du processus de recrutement des développeurs.
+# Arena Battle Game
 
-Plus d'infos à propos du poste de développeur chez Captain Contrat sur [notre page jobs](https://www.welcometothejungle.com/fr/companies/captain-contrat/jobs)
+A Rails application where fighters can battle in an arena, using weapons and their unique stats to determine the winner.
 
-# Captain Challenge
+## Features
 
-Bienvenue jeune moussaillon !
+- Create and manage fighters with balanced stats (HP and Attack points)
+- Equip fighters with various weapons that provide attack bonuses
+- Simulate battles with turn-based combat and detailed battle logs
+- Track battle history and fighter statistics
 
-Pour intégrer le navire Captain Contrat, tu dois créer une arène où deux héros pourront s'affronter !
+## Tech Stack
 
-Pour ce faire, nous avons mis à ta disposition une appli vide qu'il te faudra compléter.
+- Ruby 3.2.2
+- Rails 7.0.6
+- PostgreSQL
+- RSpec for testing
+- Bootstrap 5 for styling
+- Docker for containerization
 
-## Résultat attendu
+## Quick Start with Docker
 
-Le but de ce challenge est de tester ta capacité à monter une petite application [dans le respect des bonnes pratiques](https://medium.com/captain-contrat-tech).  
-On te propose quatre étapes clés, avec des bonus facultatifs.
+After cloning the repository, run `docker compose up` to start the application.
 
-Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises.
+Visit `http://localhost:3000` and you are ready to fight !
 
-## Tes armes
+## Launching the application without Docker
 
-- Ruby
-- Rails
-- git
+After cloning the repository, run `bundle install` to install the dependencies.
 
-## Étapes
+`yarn install` to install the JavaScript dependencies.
 
-### 1. Page d'accueil statique
+Then, run `rails db:setup` to create the database and seed the data.
 
-C'est l'accueil de l'arène, d'où nous pourrons lancer les combats.  
-Le but est donc de modifier (ou supprimer/remplacer) la page d'accueil existante.
+Finally, run `rails server` to start the application.
 
-Bonus :
+Visit `http://localhost:3000` in your browser to enter the arena !
 
-- Un petit texte d'introduction de ton cru. C'est plus fun.
-- Joli design (mais n'y perd pas trop de temps non plus)
+## Testing
 
-### 2. Pouvoir créer un personnage
+Run `bundle exec rspec` to run the tests.
 
-Données requises :
+## 📖 Game Rules
 
-- Nom
-- Points de vie
-- Points d'attaque
+1. **Fighter Creation**
 
-Assure-toi qu'il n'y ait pas de grand déséquilibre entre combattants.  
+   - Health Points (HP): 1-150
+   - Attack Points (ATK): 1-25
+   - Total power (HP + ATK\*5) must not exceed 200
 
-Bonus :
+2. **Weapons**
 
-- L'arène n'est pas vide au premier démarrage de l'appli.
-- Les persos ont une photo de profil (ou de face)
-- Crud complet des personnages
-- Ajouter d'autres caractéristiques de ton choix aux personnages
+   - Attack bonus: 0-10
+   - Optional equipment
+   - Can be changed between battles
 
-### 3. READY? FIGHT!
-
-Pouvoir choisir deux personnages et les faire combattre, puis afficher le gagnant avec un récapitulatif du combat.
-
-Bonus :
-
-- Historique des combats qui ont eu lieu
-- Ajout de points d'expérience (mais pourquoi faire ?)
-- Statistiques des combats : taux de victoire par perso et tout ça
-
-### 4. Des armes
-
-Pouvoir assigner une arme aux personnages avant le combat.
-
-Bonus :
-
-- Il n'y a pas que les armes dans la vie, il y a des boucliers aussi
-- Pouvoir utiliser plusieurs équipements
+3. **Battle System**
+   - Turn-based combat
+   - Random first attacker
+   - Battle continues until one fighter reaches 0 HP
+   - Detailed battle log recorded

@@ -1,0 +1,75 @@
+<div class="container py-5">
+  <!-- Hero Section -->
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-3 text-white mb-4">Welcome to the Arena</h1>
+      <p class="lead text-light mb-5">
+        Welcome to the Arena!
+        Choose your champion, arm them with weapons or bare hands, 
+        and write your name in the history books!
+      </p>
+      <div class="d-flex justify-content-center gap-3">
+        <%= link_to new_battle_path, class: "btn btn-danger btn-lg" do %>
+          <i class="bi bi-sword me-2"></i>Start New Battle
+        <% end %>
+        <%= link_to fighters_path, class: "btn btn-outline-light btn-lg" do %>
+          <i class="bi bi-people me-2"></i>View Fighters
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="row g-4">
+    <!-- Recent Battles -->
+    <div class="col-md-12">
+      <div class="card bg-dark text-white border-danger h-100">
+        <div class="card-header bg-danger">
+          <h2 class="h4 mb-0">Recent Battles</h2>
+        </div>
+        <div class="card-body">
+          <% if @recent_battles.any? %>
+            <div class="list-group list-group-flush bg-transparent">
+              <% @recent_battles.each do |battle| %>
+                <%= link_to battle_path(battle), class: "list-group-item list-group-item-action bg-dark text-white border-secondary py-3" do %>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                      <span class="text-success"><%= battle.winner.name %></span>
+                      <span class="text-gray mx-2">defeated</span>
+                      <span class="text-danger"><%= battle.loser.name %></span>
+                    </div>
+                    <small class="text-gray"><%= time_ago_in_words(battle.created_at) %> ago</small>
+                  </div>
+                  
+                  <% if battle.winner_weapon || battle.loser_weapon %>
+                    <div class="small">
+                      <% if battle.winner_weapon %>
+                        <span class="text-warning">
+                          <i class="bi bi-shield-fill me-1"></i>
+                          Winner used <%= battle.winner_weapon.name %> (+<%= battle.winner_weapon.attack_bonus %> ATK)
+                        </span>
+                      <% end %>
+                      
+                      <% if battle.loser_weapon %>
+                        <span class="text-gray ms-3">
+                          <i class="bi bi-shield me-1"></i>
+                          Loser used <%= battle.loser_weapon.name %> (+<%= battle.loser_weapon.attack_bonus %> ATK)
+                        </span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <i class="bi bi-sword-cross display-1 text-gray mb-3"></i>
+              <p class="text-gray mb-0">No battles have been fought yet.</p>
+              <small class="text-gray">Be the first to enter the arena!</small>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

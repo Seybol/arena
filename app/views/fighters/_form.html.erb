@@ -1,0 +1,63 @@
+<%= form_with(model: fighter, class: "card bg-dark text-white border-primary") do |f| %>
+  <div class="card-header bg-primary">
+    <h2 class="h4 mb-0"><%= fighter.new_record? ? 'New Fighter' : 'Edit Fighter' %></h2>
+  </div>
+
+  <div class="card-body">
+    <% if fighter.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(fighter.errors.count, "error") %> prohibited this fighter from being saved:</h4>
+        <ul class="mb-0">
+          <% fighter.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control bg-dark text-white border-secondary", placeholder: "Enter fighter name" %>
+    </div>
+
+    <div class="mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <%= f.label :health_points, class: "form-label mb-0" %>
+        <small class="text-gray">Max: 150</small>
+      </div>
+      <%= f.number_field :health_points, class: "form-control bg-dark text-white border-secondary", 
+          min: 1, max: 150, placeholder: "Enter health points" %>
+      <div class="progress mt-2 bg-dark border border-secondary">
+        <div class="progress-bar bg-danger" style="width: <%= (fighter.health_points.to_f / 150 * 100).round if fighter.health_points %>%">
+          <%= fighter.health_points %>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <%= f.label :attack_points, class: "form-label mb-0" %>
+        <small class="text-gray">Max: 25</small>
+      </div>
+      <%= f.number_field :attack_points, class: "form-control bg-dark text-white border-secondary", 
+          min: 1, max: 25, placeholder: "Enter attack points" %>
+      <div class="progress mt-2 bg-dark border border-secondary">
+        <div class="progress-bar bg-primary" style="width: <%= (fighter.attack_points.to_f / 25 * 100).round if fighter.attack_points %>%">
+          <%= fighter.attack_points %>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i>
+      Total power (HP + (ATK × 5)) must not exceed 200 for balance.
+    </div>
+  </div>
+
+  <div class="card-footer bg-dark border-primary">
+    <div class="d-flex justify-content-end gap-2">
+      <%= link_to 'Cancel', fighters_path, class: "btn btn-secondary" %>
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
