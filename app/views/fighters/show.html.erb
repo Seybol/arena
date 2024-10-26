@@ -1,0 +1,76 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="display-4 text-white"><%= @fighter.name %></h1>
+        <div>
+          <%= link_to 'Edit', edit_fighter_path(@fighter), class: "btn btn-primary me-2" %>
+          <%= link_to 'Back', fighters_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Fighter Stats -->
+    <div class="col-md-6">
+      <div class="card bg-dark text-white border-primary h-100">
+        <div class="card-header bg-primary">
+          <h2 class="h4 mb-0">Stats</h2>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Health Points</span>
+              <span><%= @fighter.health_points %>/150</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-danger" style="width: <%= (@fighter.health_points.to_f / 150 * 100).round %>%"></div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-gray">Attack Points</span>
+              <span><%= @fighter.attack_points %>/25</span>
+            </div>
+            <div class="progress bg-dark border border-secondary">
+              <div class="progress-bar bg-primary" style="width: <%= (@fighter.attack_points.to_f / 25 * 100).round %>%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Battle Record -->
+    <div class="col-md-6">
+      <div class="card bg-dark text-white border-danger h-100">
+        <div class="card-header bg-danger">
+          <h2 class="h4 mb-0">Battle Record</h2>
+        </div>
+        <div class="card-body">
+          <div class="row text-center g-3">
+            <div class="col">
+              <div class="p-3 bg-success bg-opacity-25 rounded">
+                <div class="h2 mb-1"><%= @fighter.victories %></div>
+                <div class="text-gray">Victories</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="p-3 bg-danger bg-opacity-25 rounded">
+                <div class="h2 mb-1"><%= @fighter.defeats %></div>
+                <div class="text-gray">Defeats</div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="p-3 bg-warning bg-opacity-25 rounded">
+                <div class="h2 mb-1"><%= @fighter.win_rate %>%</div>
+                <div class="text-gray">Win Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

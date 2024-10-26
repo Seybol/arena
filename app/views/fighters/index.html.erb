@@ -1,0 +1,53 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="display-4 text-white">Fighters</h1>
+        <%= link_to 'New Fighter', new_fighter_path, class: "btn btn-success btn-lg" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <% @fighters.each do |fighter| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card bg-dark text-white border-secondary h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h3 class="card-title h4"><%= fighter.name %></h3>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-gray">Health Points</span>
+                <span class="text-white"><%= fighter.health_points %>/150</span>
+              </div>
+              <div class="progress bg-dark border border-secondary">
+                <div class="progress-bar bg-danger" style="width: <%= (fighter.health_points.to_f / 150 * 100).round %>%"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-gray">Attack Points</span>
+                <span class="text-white"><%= fighter.attack_points %>/25</span>
+              </div>
+              <div class="progress bg-dark border border-secondary">
+                <div class="progress-bar bg-primary" style="width: <%= (fighter.attack_points.to_f / 25 * 100).round %>%"></div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <%= link_to 'View', fighter_path(fighter), class: "btn btn-outline-light btn-sm" %>
+              <%= link_to 'Edit', edit_fighter_path(fighter), class: "btn btn-outline-primary btn-sm" %>
+              <%= button_to 'Delete', fighter_path(fighter), method: :delete, 
+                  class: "btn btn-outline-danger btn-sm",
+                  form: { class: 'd-inline' },
+                  data: { confirm: "Are you sure you want to delete #{fighter.name}?" } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

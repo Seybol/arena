@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary mb-4">
+  <div class="container">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <i class="bi bi-sword-cross text-danger me-2"></i>
+      Arena
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to fighters_path, class: "nav-link #{current_page?(fighters_path) ? 'active' : ''}" do %>
+            <i class="bi bi-people me-1"></i>
+            Fighters
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to battles_path, class: "nav-link #{current_page?(battles_path) ? 'active' : ''}" do %>
+            <i class="bi bi-sword me-1"></i>
+            Battles
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

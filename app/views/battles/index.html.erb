@@ -1,0 +1,78 @@
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="display-4 text-white">Battle History</h1>
+        <%= link_to new_battle_path, class: "btn btn-danger btn-lg" do %>
+          <i class="bi bi-sword me-2"></i>New Battle
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-dark text-white border-primary">
+    <div class="card-header bg-primary">
+      <h2 class="h4 mb-0">All Battles</h2>
+    </div>
+    <div class="card-body p-0">
+      <% if @battles.any? %>
+        <div class="list-group list-group-flush">
+          <% @battles.each do |battle| %>
+            <%= link_to battle_path(battle), class: "list-group-item list-group-item-action bg-dark text-white border-secondary p-4" do %>
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <div class="text-success">
+                      <div class="h5 mb-1"><%= battle.winner.name %></div>
+                      <% if battle.winner_weapon %>
+                        <small class="text-warning">
+                          <i class="bi bi-shield-fill me-1"></i>
+                          <%= battle.winner_weapon.name %> (+<%= battle.winner_weapon.attack_bonus %> ATK)
+                        </small>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-1 text-center">
+                  <div class="text-gray h5 mb-0">VS</div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <div class="text-danger">
+                      <div class="h5 mb-1"><%= battle.loser.name %></div>
+                      <% if battle.loser_weapon %>
+                        <small class="text-gray">
+                          <i class="bi bi-shield me-1"></i>
+                          <%= battle.loser_weapon.name %> (+<%= battle.loser_weapon.attack_bonus %> ATK)
+                        </small>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 text-end">
+                  <small class="text-gray d-block mb-1">
+                    <i class="bi bi-clock me-1"></i>
+                    <%= time_ago_in_words(battle.created_at) %> ago
+                  </small>
+                  <small class="text-primary">
+                    <i class="bi bi-eye me-1"></i>
+                    View Details
+                  </small>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <i class="bi bi-sword-cross display-1 text-gray mb-3"></i>
+          <p class="text-gray mb-0">No battles have been fought yet.</p>
+          <small class="text-gray">Be the first to enter the arena!</small>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
